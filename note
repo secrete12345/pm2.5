@@ -4,53 +4,25 @@ my-web-app/
 │
 ├── backend/
 │   ├── app/
-│   │   ├── __init__.py          # Initializes Flask, Extensions, and DB
+│   │   ├── __init__.py          # Initializes Flask and the DB
 │   │   ├── models.py            # SQL Database Schema (User Table)
-│   │   ├── routes.py            # Login Logic & Route Protection
-│   │   └── database.py          # Database setup connection
+│   │   └── routes.py            # Login Logic & Route Protection
 │   │
 │   ├── config.py                # App Configuration (Secret keys, DB paths)
-│   ├── requirements.txt         # Dependencies (Flask, Flask-SQLAlchemy, etc.)
-│   └── run.py                   # The main entry file to launch the server
+│   ├── requirements.txt         # Dependencies (Flask, Flask-SQLAlchemy)
+│   └── run.py                   # Entry file to launch the server
 │
 └── frontend/
     ├── static/
-    │   └── css/
-    │       └── style.css        # Styling for your login & main pages
+    │   ├── css/
+    │   │   └── style.css        # All styling rules
+    │   └── js/
+    │       ├── auth.js          # JavaScript specifically for the login page
+    │       └── main.js          # JavaScript specifically for the main page
+    │
     └── templates/
-        ├── base.html            # The skeleton HTML template
+        ├── base.html            # Skeleton HTML (Navbar, script links)
         ├── login.html           # The Front Door (Login UI)
         └── index.html           # The Protected Main Page
-
-
-congig.py
-import os
-
-class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-super-secret-key-change-this'
-    # Using SQLite here for simplicity, but easily swappable for PostgreSQL/MySQL
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///project.db'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-
-
-models.py
-from flask_sqlalchemy import SQLAlchemy
-from werkzeug.security import generate_password_hash, check_password_hash
-
-db = SQLAlchemy()
-
-class User(db.Model):
-    __tablename__ = 'users'
-    
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(120), nullable=False)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
 
 https://gemini.google.com/app/fc99caad5f6388e0
