@@ -1,1 +1,23 @@
 https://air4thai.pcd.go.th/services/getNewAQI_JSON.php -- pm2.5 reports
+structure
+my-web-app/
+│
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py          # Initializes Flask, Extensions, and DB
+│   │   ├── models.py            # SQL Database Schema (User Table)
+│   │   ├── routes.py            # Login Logic & Route Protection
+│   │   └── database.py          # Database setup connection
+│   │
+│   ├── config.py                # App Configuration (Secret keys, DB paths)
+│   ├── requirements.txt         # Dependencies (Flask, Flask-SQLAlchemy, etc.)
+│   └── run.py                   # The main entry file to launch the server
+│
+└── frontend/
+    ├── static/
+    │   └── css/
+    │       └── style.css        # Styling for your login & main pages
+    └── templates/
+        ├── base.html            # The skeleton HTML template
+        ├── login.html           # The Front Door (Login UI)
+        └── index.html           # The Protected Main Page
