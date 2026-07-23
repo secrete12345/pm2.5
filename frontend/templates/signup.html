@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="login-box">
+    <h2>Create an Account</h2>
+    
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <p class="error-message">{{ messages[0] }}</p>
+      {% endif %}
+    {% endwith %}
+
+    <form id="signupForm" method="POST" action="{{ url_for('main.signup') }}">
+        <input type="text" name="username" id="username" placeholder="Choose Username" required><br><br>
+        
+        <input type="password" name="password" id="password" placeholder="Choose Password" required><br><br>
+
+        <label for="area">Select Your Area:</label><br>
+        <select name="area" id="area" required>
+            <option value="" disabled selected>-- Choose an area --</option>
+            {% for location in areas %}
+                <option value="{{ location }}">{{ location }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <br>
+    <p>Already have an account? <a href="{{ url_for('main.login') }}">Log in here</a></p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="main-dashboard">
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p><strong>Selected Location:</strong> {{ user.area }}</p>
+
+    <hr>
+
+    <h3>Air Quality Information (Air4Thai)</h3>
+    {% if air_info %}
+        <div class="aqi-card">
+            <p><strong>Station:</strong> {{ air_info.station_name }}</p>
+            <p><strong>PM2.5:</strong> {{ air_info.pm25 }} µg/m³</p>
+            <p id="level"><strong>Level: </p>
+            <p><strong>AQI Index:</strong> {{ air_info.aqi }}</p>
+            <p><small>Last updated: {{ air_info.updated_at }}</small></p>
+        </div>
+    {% else %}
+        <p><em>No live air quality data currently available for your location.</em></p>
+    {% endif %}
+
+    <br>
+    <a href="{{ url_for('main.logout') }}" class="btn-logout">Log Out</a>
+</div>
+<div id="aqiContainer" data-pm25="{{ air_info.aqi if air_info else '' }}"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
